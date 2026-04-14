@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Price Predictor</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: url("{{ url_for('static', filename='images/bike3.avif') }}") no-repeat center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.53);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            color: white;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;   /* increased gap */
+
+        }
+
+        label {
+            font-size: 18px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+
+        }
+
+        .full {
+            grid-column: span 2;
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #0072ff, #00c6ff);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .result {
+            margin-top: 15px;
+            text-align: center;
+            color: #00ffcc;
+            font-size: 18px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 20px;
+            color: #7bb8fd;
+        }
+        .footer p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>  🏍 Used Bike Price Predictor</h2>
+
+    <form action="/predict" method="post">
+
+        <div>
+            <label for="brand">Brand</label>
+            <select name="brand" id="brand" required>
+                {% for b in brands %}
+                <option value="{{b}}">{{b}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="owner">Owner</label>
+            <select name="owner" id="owner" required>
+                <option>First Owner</option>
+                <option>Second Owner</option>
+                <option>Third Owner</option>
+                <option>Fourth Owner Or More</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="kms">Kms Driven</label>
+            <input type="number" id="kms" name="kms_driven" min="1" required>
+        </div>
+
+        <div>
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="1" max="20" required>
+        </div>
+
+        <div class="full">
+            <label for="power">Power (CC)</label>
+            <input type="number" id="power" name="power" min="50" max="2000" required>
+        </div>
+
+        <div class="full">
+            <button type="submit">Predict Price 💰</button>
+        </div>
+
+        <div class="footer">
+            <p> 🏍 Model Accuracy: 90%</p>
+            <p>Created by Himanshi Verma</p>
+        </div>
+
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+        Estimated Price: ₹{{prediction}}
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
