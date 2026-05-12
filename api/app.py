@@ -4,14 +4,14 @@ import numpy as np
 import pandas as pd
 import os
 
-# ✅ FIX 1: correct template & static path
+
 app = Flask(
     __name__,
     template_folder="../templates",
     static_folder="../static"
 )
 
-# ✅ FIX 2: correct model path
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 model_path = os.path.join(BASE_DIR, "model.pkl")
 
